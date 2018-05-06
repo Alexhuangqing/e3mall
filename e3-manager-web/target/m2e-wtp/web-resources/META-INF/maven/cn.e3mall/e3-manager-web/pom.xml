@@ -1,4 +1,5 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
@@ -9,10 +10,30 @@
 	<artifactId>e3-manager-web</artifactId>
 	<packaging>war</packaging>
 	<dependencies>
+		<!-- 引入商品管理接口 -->
 		<dependency>
 			<groupId>cn.e3mall</groupId>
 			<artifactId>e3-manager-interface</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 引入内容服务接口 -->
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3-content-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<!-- 引入商品信息 一键导入 solr 库 接口 -->
+		<dependency>
+			<groupId>cn.e3mall</groupId>
+			<artifactId>e3-search-interface</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+
+		<!-- 单元测试 -->
+
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
 		</dependency>
 		<!-- JSP相关 -->
 		<dependency>
@@ -28,11 +49,6 @@
 			<groupId>javax.servlet</groupId>
 			<artifactId>jsp-api</artifactId>
 			<scope>provided</scope>
-		</dependency>
-		<!-- Jackson Json处理工具包 将对象转成Json -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.core</groupId>
-			<artifactId>jackson-databind</artifactId>
 		</dependency>
 		<!-- Spring -->
 		<dependency>
@@ -87,7 +103,17 @@
 			<groupId>com.github.sgroschupf</groupId>
 			<artifactId>zkclient</artifactId>
 		</dependency>
-		
+		<!-- 文件上传所需要的依赖包 -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-io</artifactId>
+		</dependency>
+		<!-- 文件上传组件 依赖包 -->
+		<dependency>
+			<groupId>commons-fileupload</groupId>
+			<artifactId>commons-fileupload</artifactId>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<plugins>
