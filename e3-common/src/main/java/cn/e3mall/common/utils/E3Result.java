@@ -1,6 +1,6 @@
 package cn.e3mall.common.utils;
 
-import java.io.Serializable;
+import java.io.Serializable; 
 import java.util.List;
 
 import com.fasterxml.jackson.databind.JsonNode;

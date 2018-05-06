@@ -1,6 +1,6 @@
 package cn.e3mall.common.utils;
 
-import java.util.List;
+import java.util.List;  
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JavaType;
