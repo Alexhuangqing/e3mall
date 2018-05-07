@@ -36,6 +36,32 @@
 	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
 		<constructor-arg value="itemAddTopic" />
 	</bean>
+	
+	
+	
+	
+	
+	<!-- 接收消息 1-->
+	<!-- 配置监听器 -->
+	<!-- <bean id="myMessageListener" class="cn.e3mall.search.messageListener.MyMessageListener" /> -->
+	<!-- 消息监听容器  生产者需要开发 "spring-queue" 才能打开  容器是2选1吗？ -->
+	<!-- <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="queueDestination" />
+		<property name="messageListener" ref="myMessageListener" />
+	</bean> -->
+	
+	<!-- 接收消息2 -->
+	<!-- 配置监听器   -->
+	<bean id="htmlGenListener" class="cn.e3mall.item.messageListener.HtmlGenListener" />
+	<!-- 消息监听容器  生产者需要开发 "item-change-topic" 才能打开  容器是2选1吗？-->
+	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory" />
+		<property name="destination" ref="topicDestination" />
+		<property name="messageListener" ref="htmlGenListener" />
+	</bean>
+	
+	
 </beans>
 	
 

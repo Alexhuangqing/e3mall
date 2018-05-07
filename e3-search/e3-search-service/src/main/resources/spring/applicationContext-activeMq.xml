@@ -13,7 +13,7 @@
 
 	<!-- 真正可以产生Connection的ConnectionFactory，由对应的 JMS服务厂商提供 -->
 	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
-		<property name="brokerURL" value="tcp://192.168.1.151:61616" />
+		<property name="brokerURL" value="tcp://192.168.25.129:61616" />
 	</bean>
 	<!-- Spring用于管理真正的ConnectionFactory的ConnectionFactory -->
 	<bean id="connectionFactory"
@@ -34,7 +34,7 @@
 	</bean>
 	<!--这个是主题目的地，一对多的 -->
 	<bean id="topicDestination" class="org.apache.activemq.command.ActiveMQTopic">
-		<constructor-arg value="item-change-topic" />
+		<constructor-arg value="itemAddTopic" />
 	</bean>
 	
 	
@@ -43,18 +43,18 @@
 	
 	<!-- 接收消息 1-->
 	<!-- 配置监听器 -->
-	<bean id="myMessageListener" class="cn.e3mall.search.messageListener.MyMessageListener" />
-	<!-- 消息监听容器 -->
-	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+	<!-- <bean id="myMessageListener" class="cn.e3mall.search.messageListener.MyMessageListener" /> -->
+	<!-- 消息监听容器  生产者需要开发 "spring-queue" 才能打开  容器是2选1吗？ -->
+	<!-- <bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="destination" ref="queueDestination" />
 		<property name="messageListener" ref="myMessageListener" />
-	</bean>
+	</bean> -->
 	
 	<!-- 接收消息2 -->
-	<!-- 配置监听器 -->
+	<!-- 配置监听器   -->
 	<bean id="itemChangeListener" class="cn.e3mall.search.messageListener.ItemChangeListener" />
-	<!-- 消息监听容器 -->
+	<!-- 消息监听容器  生产者需要开发 "item-change-topic" 才能打开  容器是2选1吗？-->
 	<bean class="org.springframework.jms.listener.DefaultMessageListenerContainer">
 		<property name="connectionFactory" ref="connectionFactory" />
 		<property name="destination" ref="topicDestination" />

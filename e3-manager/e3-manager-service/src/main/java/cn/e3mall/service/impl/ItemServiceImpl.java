@@ -14,6 +14,7 @@ import javax.jms.Session;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.jms.JmsException;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.jms.core.MessageCreator;
 import org.springframework.stereotype.Service;
@@ -56,14 +57,14 @@ public class ItemServiceImpl implements ItemService {
 	private JmsTemplate jmsTemplate;
 
 	@Resource
-	private Destination topicDestination;
+	private Destination topicDestination;//自动根据同名id注入
 
 	@Autowired
 	private JedisClient jedisClient;
 
-	@Value(value = "ITEM_INFO_PRE")
+	@Value("${ITEM_INFO_PRE}")
 	private String ITEM_INFO;
-	@Value(value = "ITEM_EXPIRE_TIME")
+	@Value("${ITEM_EXPIRE_TIME}")
 	private Integer ITEM_EXPIRE_TIME;
 
 	/*
@@ -149,16 +150,20 @@ public class ItemServiceImpl implements ItemService {
 		tbItemDesc.setCreated(createde);
 		tbItemDesc.setUpdated(Updated);
 		tbItemDescMapper.insert(tbItemDesc);
-		// 将id 添加到ActiveMQ 用于append同步索引库
-		jmsTemplate.send(topicDestination, new MessageCreator() {
-			// 为保证consumer在接收时，insert事务已经完成提交
-			@Override
-			public Message createMessage(Session session) throws JMSException {
+		try {
+			// 将id 添加到ActiveMQ 用于append同步索引库
+			jmsTemplate.send(topicDestination, new MessageCreator() {
+				// 为保证consumer在接收时，insert事务已经完成提交
+				@Override
+				public Message createMessage(Session session) throws JMSException {
 
-				return session.createTextMessage(id + "");
-			}
+					return session.createTextMessage(id + "");
+				}
 
-		});
+			});
+		} catch (JmsException e) {
+			e.printStackTrace();
+		}
 
 		return E3Result.ok();
 	}

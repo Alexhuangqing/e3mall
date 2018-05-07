@@ -35,7 +35,8 @@ public class TestJedis {
 	@Test
 	public void testJedis() throws Exception{
 		//创建资源
-		Jedis jedis = new Jedis("192.168.1.151",6379);
+//		Jedis jedis = new Jedis("192.168.1.151",6379);
+		Jedis jedis = new Jedis("192.168.25.130",6379);
 		jedis.set("testJedis", "javaTest");
 		String VTestJedis = jedis.get("testJedis");
 		System.out.println(VTestJedis);
@@ -51,7 +52,7 @@ public class TestJedis {
 	@Test
 	public void testJedisPool() throws Exception{
 		//创建连接池
-		JedisPool jedisPool = new  JedisPool("192.168.1.151",6379);
+		JedisPool jedisPool = new  JedisPool("192.168.25.130",6379);
 		//获取资源
 		Jedis jedis = jedisPool.getResource();
 		String VTestJedis = jedis.get("testJedis");
@@ -68,32 +69,32 @@ public class TestJedis {
 	 * 系统维护一个单例的集群客户端
 	 *<p>desc:集群解决方案</p>
 	 */
-	@Test
-	public void testJedisCluster() throws Exception{
-		
-		JedisPoolConfig config = new JedisPoolConfig();
-		       config.setMaxTotal(60000);//设置最大连接数  
-		       config.setMaxIdle(1000); //设置最大空闲数 
-		       config.setMaxWaitMillis(3000);//设置超时时间  
-		       config.setTestOnBorrow(true);
-		Set<HostAndPort> nodes = new HashSet<>();
-		nodes.add(new HostAndPort("192.168.1.151",7001));
-		nodes.add(new HostAndPort("192.168.1.151",7002));
-		nodes.add(new HostAndPort("192.168.1.151",7003));
-		nodes.add(new HostAndPort("192.168.1.151",7004));
-		nodes.add(new HostAndPort("192.168.1.151",7005));
-		nodes.add(new HostAndPort("192.168.1.151",7006));
-		JedisCluster jedisCluster = new JedisCluster(nodes,config);
-		
-		
-		jedisCluster.set("testNode", "Cluster Hello");
-		String vJedisCluster = jedisCluster.get("testNode");
-		System.out.println(vJedisCluster);
-		
-		
-		jedisCluster.close();
-		
-		
-	}
+//	@Test
+//	public void testJedisCluster() throws Exception{
+//		
+//		JedisPoolConfig config = new JedisPoolConfig();
+//		       config.setMaxTotal(60000);//设置最大连接数  
+//		       config.setMaxIdle(1000); //设置最大空闲数 
+//		       config.setMaxWaitMillis(3000);//设置超时时间  
+//		       config.setTestOnBorrow(true);
+//		Set<HostAndPort> nodes = new HashSet<>();
+//		nodes.add(new HostAndPort("192.168.1.151",7001));
+//		nodes.add(new HostAndPort("192.168.1.151",7002));
+//		nodes.add(new HostAndPort("192.168.1.151",7003));
+//		nodes.add(new HostAndPort("192.168.1.151",7004));
+//		nodes.add(new HostAndPort("192.168.1.151",7005));
+//		nodes.add(new HostAndPort("192.168.1.151",7006));
+//		JedisCluster jedisCluster = new JedisCluster(nodes,config);
+//		
+//		
+//		jedisCluster.set("testNode", "Cluster Hello");
+//		String vJedisCluster = jedisCluster.get("testNode");
+//		System.out.println(vJedisCluster);
+//		
+//		
+//		jedisCluster.close();
+//		
+//		
+//	}
 
 }

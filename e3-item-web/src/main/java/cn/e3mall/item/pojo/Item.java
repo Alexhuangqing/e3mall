@@ -8,7 +8,7 @@ import cn.e3mall.pojo.TbItem;
 /**
  * @author Alex 2018年5月1日
  *         <p>
- * 		desc:null
+ * 		desc:在查询结果里，封装magesi
  *         </p>
  */
 public class Item extends TbItem {
