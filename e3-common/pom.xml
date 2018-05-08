@@ -16,6 +16,12 @@
 			<artifactId>fastdfs_client</artifactId>
 			<version>1.25</version>
 		</dependency>
+		<!-- 添加servlet相关的包 -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<scope>provided</scope>
+		</dependency>
 
 		<!-- Jackson Json处理工具包 -->
 		<dependency>
